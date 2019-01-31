@@ -114,6 +114,10 @@ function styleFilterChanged(id, checked){
 	for(i = 0; i < data.length; i++){
 		d = data[i];
 		if(d.dataset.style == undefined){
+			if(id == "No especificado"){
+				d.dataset.style_selected = checked;
+				continue;
+			}
 			continue;
 		}
 		if(d.dataset.style.includes(id)){
@@ -128,8 +132,13 @@ function periodFilterChanged(id, checked){
 	for(i = 0; i < data.length; i++){
 		d = data[i];
 		if(d.dataset.historical_period == undefined){
+			if(id == "No especificado"){
+				d.dataset.period_selected = checked;
+				continue;
+			}
 			continue;
 		}
+		//console.log(d.dataset.historical_period, id);
 		if(d.dataset.historical_period.includes(id)){
 			d.dataset.period_selected = checked;
 		}
