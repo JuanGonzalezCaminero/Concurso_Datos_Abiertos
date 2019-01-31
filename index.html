@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js" charset="utf-8""></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<script src="https://d3js.org/d3-array.v1.min.js"></script>
+	<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+	<script src="https://d3js.org/d3-color.v1.min.js"></script>
+	<script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+	<script src="https://d3js.org/d3-ease.v1.min.js"></script>
+	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+	<script src="https://d3js.org/d3-selection.v1.min.js"></script>
+	<script src="https://d3js.org/d3-timer.v1.min.js"></script>
+	<script src="https://d3js.org/d3-transition.v1.min.js"></script>
+	<script src="https://d3js.org/d3-drag.v1.min.js"></script>
+	<script src="https://d3js.org/d3-zoom.v1.min.js"></script>
+	<script src="moment.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+	<link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light.min.css" />
+	<link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-light_custom.min.css" />
+	<link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless.min.css" />
+	<link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless_custom.min.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+</head>
+<body>
+	<div class = "background" id = "main_div">
+		<svg id = "svg">
+			<g id = "zoom_group">
+				<g id = "map_group"></g>
+				<g id = "data_group"></g>
+			</g> 
+		</svg>
+		<div class = "menu" id = "controls_div">
+			<label for = "Yacimientos_arqueologicos">
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Yacimientos_arqueologicos" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="archaeological_site_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					Yacimientos <br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Monasterios" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="monastery_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Monasterios<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Castillos" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="castle_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Castillos<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Catedrales" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="cathedral_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Catedrales<br>
+				</div>
+			</label>
+			<label>	
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Reales_sitios" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="crown_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Reales Sitios<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Casas_consistoriales" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="town_hall_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Casas Consistoriales<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Plazas_mayores" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="square_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Plazas Mayores<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Iglesias_y_ermitas" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="church_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Iglesias y Ermitas<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Palacios" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="palace_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Palacios<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Sinagogas" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="star_of_david_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Sinagogas<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Casas_nobles" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="noble_house_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Casas Nobles<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Santuarios" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="sanctuary_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Santuarios<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Molinos" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="mill_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Molinos<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Cruceros" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="cross_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Cruceros<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Fuentes" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="fountain_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Fuentes<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Horreos" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="horreo_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Hórreos<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Murallas_y_puertas" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="wall_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Murallas y puertas<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Torres" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="tower_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Torres<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Puentes" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="bridge_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Puentes<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Esculturas" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="statue_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Esculturas<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Otros_edificios" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="others_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Otros edificios<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Conjunto_etnologico" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="man_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Conjunto Etnológico<br>
+				</div>
+			</label>
+			<label>
+				<div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Paraje_pintoresco" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="scenery_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Paraje pintoresco<br>
+				</div>
+			</label>
+			<label>
+				<nobr><div class = "checkbox_div">
+					<input type="checkbox" class = "type_checkbox" id = "Jardin_historico" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="flower_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Jardín Histórico
+					<button onclick="selectAll()" style="position: relative;
+					 						left: 40%;
+					 						top: 10px;
+					 						font-family: arial;
+					 						font-size: 12pt;
+					 						width: 53%;">
+					 <strong>Seleccionar todo</strong>
+					 </button>
+					 <br>
+				</div></nobr>
+			</label>
+			<label>
+				<nobr><div class = "checkbox_div" style="position: relative; top: -6px;">
+					<input type="checkbox" class = "type_checkbox" id = "Sitio_historico" checked="true" onchange="selectionChanged(id, checked)">
+					<img src="book_grey.png" height="25px" width="25px" style="position: relative;
+																						 top: 4px;
+																						 margin-right: 5px;">
+					 Sitio Histórico
+					 <button onclick="deselectAll()" style="position: relative;
+					 						left: 45.2%;
+					 						top: 11.5px;
+					 						font-family: arial;
+					 						font-size: 12pt;
+					 						width: 53%;">
+					 <strong>Borrar selección</strong>
+					 </button>
+					 <br>
+				</div></nobr>
+			</label>
+			<!--<div id = "selection_div" style="width: 100%;
+							height: 30%;
+							margin: 0px;
+							padding: 0px;
+							position: absolute;
+							bottom: 0;
+							background-color: #f4f9ff;
+							box-sizing: border-box;">
+				
+			</div>-->
+		</div>
+		<div class = "menu" id = "info_div" style="display: none;">
+			<p id = "info_name" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial;">
+			</p>
+			<p id = "info_description" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial; margin-right: 2.5%">
+			</p>
+			<p id = "info_id" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			Identificador:
+			</p>
+			<p id = "info_type" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			Tipo de monumento:
+			</p>
+			<p id = "info_period" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			Período:
+			</p>
+			<p id = "info_street" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			Calle:
+			</p>
+			<p id = "info_coordinates" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			Coordenadas:
+			</p>
+			<p id = "info_poblacion" style="margin-left: 2.5%; margin-top: 2.5%; margin-bottom: 10%;font-family: arial">
+			Poblacion:
+			</p>
+
+			<button class = "button" onclick = "hideInfo()" style="position: absolute;
+					 						right: 0;
+					 						bottom: 0;
+					 						margin-right: 1.5%;
+					 						margin-bottom: 1.5%;
+					 						font-family: arial;
+					 						font-size: 12pt;">
+			<strong>Ocultar</strong>
+			</button>
+		</div>
+		<br>
+		<div></div>
+	</div>
+	
+
+	<script type="text/javascript" src="main.js">
+		
+	</script>
+	
+
+</body>
+</html>

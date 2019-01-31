@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js" charset="utf-8""></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<script src="https://d3js.org/d3-array.v1.min.js"></script>
+	<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+	<script src="https://d3js.org/d3-color.v1.min.js"></script>
+	<script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+	<script src="https://d3js.org/d3-ease.v1.min.js"></script>
+	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+	<script src="https://d3js.org/d3-selection.v1.min.js"></script>
+	<script src="https://d3js.org/d3-timer.v1.min.js"></script>
+	<script src="https://d3js.org/d3-transition.v1.min.js"></script>
+	<script src="https://d3js.org/d3-drag.v1.min.js"></script>
+	<script src="https://d3js.org/d3-zoom.v1.min.js"></script>
+	<script src="moment.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<div id = "main_div" style="width: 100%;
+								height: 100%;
+								margin: 0px;
+								padding: 0px;
+								background-color: #ffffff;">
+		<svg id = "svg" style = "width: 80%;
+							height: 100%;
+							margin: 0px;
+							padding: 0px;
+							float: right;
+							box-sizing: border-box;">
+			<g id = "zoom_group">
+				<g id = "map_group"></g>
+				<g id = "data_group"></g>
+			</g> 
+		</svg>
+		<div id = "controls_div" style="width: 18.75%;
+							height: 95%;
+							margin-top: 1.25%;
+							margin-bottom: 1.25%;
+							margin-left: 1.25%;
+							padding: 0px;
+							float: left;
+							box-sizing: border-box;
+							position: relative;
+							font-size: 14pt;
+							font-family: arial;
+							background-color: #ffffff;
+							border: 5px solid #041F37;">
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="archaeological_site.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				Yacimientos <br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="monastery.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Monasterios<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="castle.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Castillos<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="cathedral.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Catedrales<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="crown.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Reales Sitios<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="town_hall.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Casas Consistoriales<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="square.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Plazas Mayores<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="church.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Iglesias y Ermitas<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="palace.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Palacios<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="star_of_david.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Sinagogas<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="noble_house.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Casas Nobles<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="sanctuary.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Santuarios<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="mill.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Molinos<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="cross.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Cruceros<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="fountain.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Fuentes<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="horreo.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Hórreos<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="wall.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Murallas y puertas<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="tower.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Torres<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="bridge.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Puentes<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="statue.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Esculturas<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="others.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Otros edificios<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="man.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Conjunto Etnológico<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="scenery.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Paraje pintoresco<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="flower.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Jardín Histórico<br>
+			</div>
+
+			<div style="margin-left: 20px;
+						margin-top: 5px;">
+				<input type="checkbox" style="width: 15px; height: 15px;">
+				<img src="book.png" height="25px" width="25px" style="position: relative;
+																					 top: 4px;
+																					 margin-right: 5px;">
+				 Sitio Histórico<br>
+			</div>
+			
+			<!--<div id = "selection_div" style="width: 100%;
+							height: 30%;
+							margin: 0px;
+							padding: 0px;
+							position: absolute;
+							bottom: 0;
+							background-color: #f4f9ff;
+							box-sizing: border-box;">
+				
+			</div>-->
+		</div>
+	</div>
+	
+
+	<script type="text/javascript">
+		var numberPattern =  /[-]{0,1}[\d]*[\.]{0,1}[\d]+/g;
+		var dataPath = "data.csv"
+		var svg = d3.select("svg");
+		var map_group = svg.select("#map_group");
+		var data_group = svg.select("#data_group");
+		var projection = d3.geoMercator().translate([document.getElementById("svg").clientWidth/2, 									document.getElementById("svg").clientHeight/2])
+									 		  .scale(10000)
+									 		  .center([-4.7285413, 41.6522966]);
+		var monuments;
+		var base_size = 20;
+		var half_base_size = Math.floor(base_size / 2);
+		console.log(document.getElementById("svg"));
+		var svg_height = document.getElementById("svg").height.baseVal.value;
+		var svg_width = document.getElementById("svg").width.baseVal.value;
+		console.log(svg_height, svg_width);
+
+		fetch("https://query.wikidata.org/sparql/#SELECT%20%3Fitem%20%3Fimagen%20WHERE%20%7B%0A%20%20%3Fitem%20%3Flabel%20%22Arco%20de%20Medinaceli%22.%0A%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP18%20%3Fimagen.%20%7D%0A%7D").then(function(response) {
+			    console.log(response.json());
+			    console.log(response);
+			  });
+
+		//Drawing the map
+		d3.json("Castile and León_AL8.GeoJson", function(json){
+			map_group.selectAll("path").data(json.features)
+								 	 .enter()
+								  	 .append("path")
+								 	 .attr("d", d3.geoPath().projection(projection))
+								 	 .attr("vector-effect", "non-scaling-stroke")
+								 	 .attr("fill", function(d, i){return "#219209";});
+		});
+
+		d3.json("monumentos.json", function(error, data) {
+			  monuments = data.monumentos;
+			  //Draw monuments when they are loaded
+			  loadMonuments(monuments);
+			});
+
+		//Loading the data
+		//d3.csv(dataPath, loadData);
+
+		function loadMonuments(data){
+			tipos = new Set();
+			var image_src;
+
+			for(let i = 0; i < data.length; i++){
+				image_src = "";
+				d = data[i];
+				switch(d.tipoMonumento){
+					case "Catedrales":
+						image_src = "cathedral.png";
+						break;
+					case "Iglesias y Ermitas":
+						image_src = "church.png";
+						break;
+					case "Castillos":
+						image_src = "castle.png";
+						break;
+					case "Monasterios":
+						image_src = "monastery.png";
+						break;
+					case "Yacimientos arqueológicos":
+						image_src = "archaeological_site.png";
+						break;
+					case "Reales Sitios":
+						image_src = "crown.png";
+						break;
+					case "Casas Consistoriales":
+						image_src = "town_hall.png";
+						break;
+					case "Plazas Mayores":
+						image_src = "square.png";
+						break;
+					case "Palacios":
+						image_src = "palace.png";
+						break;
+					case "Sinagogas":
+						image_src = "star_of_david.png";
+						break;
+					case "Casas Nobles":
+						image_src = "noble_house.png";
+						break;
+					case "Santuarios":
+						image_src = "sanctuary.png";
+						break;
+					case "Molinos":
+						image_src = "mill.png";
+						break;
+					case "Cruceros":
+						image_src = "cross.png";
+						break;
+					case "Fuentes":
+						image_src = "fountain.png";
+						break;
+					case "Hórreos":
+						image_src = "horreo.png";
+						break;
+					case "Murallas y puertas":
+						image_src = "wall.png";
+						break;
+					case "Torres":
+						image_src = "tower.png";
+						break;
+					case "Puentes":
+						image_src = "bridge.png";
+						break;
+					case "Esculturas":
+						image_src = "statue.png";
+						break;
+					case "Otros edificios":
+						image_src = "others.png";
+						break;
+					case "Paraje pintoresco":
+						image_src = "scenery.png";
+						break;
+					case "Jardín Histórico":
+						image_src = "flower.png";
+						break;
+					case "Sitio Histórico":
+						image_src = "book.png";
+						break;
+					case "Conjunto Etnológico":
+						image_src = "man.png";
+						break;
+					//default:
+					//	image_src = "";
+				}
+				tipos.add(d.tipoMonumento);
+				if(d.coordenadas.longitud.includes('#')){
+					d.coordenadas.longitud = d.coordenadas.longitud.replace('#', '');
+				}
+
+				projected_coords = projection([d.coordenadas.longitud, d.coordenadas.latitud]);
+				data_group.append("image")
+								.attr("xlink:href", image_src)
+								.attr("x", projected_coords[0] - half_base_size)
+								.attr("y", projected_coords[1] - half_base_size)
+								.attr("width", base_size)
+								.attr("height", base_size)
+								.attr("data-x", projected_coords[0])
+								.attr("data-y", projected_coords[1])
+								.attr("data-offset", half_base_size)
+								.attr("onmouseover", function(d, i){console.log("hey");});
+				/*
+				data_group.append("circle")
+								.attr("cx", projected_coords[0])
+								.attr("cy", projected_coords[1])
+								.attr("r", r + "px")
+								.style("fill", "rgb(255, 0, 0)")
+								.attr("opacity", 0.65)
+								.attr("data-radius", r)
+				*/
+			}
+			console.log(tipos);
+			//Drawing the circles
+			//drawCircles();
+		}
+
+		function drawMonuments(){
+			var scale;
+			data = document.getElementsByTagName("image");
+			//Transform of the map group, used to scale the circles
+			transform = document.getElementById("zoom_group").getAttribute("transform");
+			if(transform == null){
+				scale = 1;
+			}else{
+				scale = transform.match(numberPattern)[2];
+			}
+			new_size = base_size/scale;
+
+			for(i = 0; i < data.length; i++){
+				d = data[i];
+				//projected_coords = projection([data[i].coordenadas.longitud, data[i].coordenadas.latitud]);
+				d.setAttribute("width", new_size);
+				d.setAttribute("height", new_size);
+				d.setAttribute("x", d.dataset.x - new_size/2);
+				d.setAttribute("y", d.dataset.y - new_size/2);
+			}
+		}
+
+		function map_zoom() {
+		   svg.select("#zoom_group").attr("transform", d3.event.transform);
+		   //Re-draw the monuments
+		   drawMonuments(monuments);
+		}
+		//This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
+		svg.call(d3.zoom().scaleExtent([1, 180])
+						  .extent([[0, 0], [svg_width, svg_height]])
+						  .translateExtent([[-svg_width * 0.5, -svg_height * 0.5], [svg_width * 1.5, svg_height * 1.5]])
+						  .on("zoom", map_zoom));
+
+	</script>
+	
+
+</body>
+</html>
