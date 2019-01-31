@@ -3,21 +3,27 @@ var dataPath = "data.csv"
 var svg = d3.select("svg");
 var map_group = svg.select("#map_group");
 var data_group = svg.select("#data_group");
-var projection = d3.geoMercator().translate([document.getElementById("svg").clientWidth/2, document.getElementById("svg").clientHeight/2])
-							 	 .scale(10000)
-							 	 .center([-4.7285413, 41.6522966]);
 var monuments;
 var base_size = 20;
 var mouseover_increase = 10;
 var half_base_size = Math.floor(base_size / 2);
-var svg_height = document.getElementById("svg").height.baseVal.value;
-var svg_width = document.getElementById("svg").width.baseVal.value;
+//var svg_height = document.getElementById("svg").height.baseVal.value;
+//var svg_width = document.getElementById("svg").width.baseVal.value;
+var svg_height = document.getElementById("svg").parentNode.clientHeight;
+var svg_width = document.getElementById("svg").parentNode.clientWidth;
 var info_div = document.getElementById("info_div");
+//var projection = d3.geoMercator();
+
+var projection = d3.geoMercator().translate([document.getElementById("svg").parentNode.clientWidth/2, document.getElementById("svg").parentNode.clientHeight/2])
+									 		  .scale(10000)
+									 		  .center([-4.7285413, 41.6522966]);
 
 var map_color = "#FFEDAA";
 
 //Drawing the map
 d3.json("Castile and León_AL6.GeoJson", function(json){
+	//console.log(document.getElementById("svg").parentNode.clientWidth, document.getElementById("svg").parentNode.clientHeight);
+	//projection.fitExtent([[0, 0], [document.getElementById("svg").parentNode.clientWidth, document.getElementById("svg").parentNode.clientHeight]], json);
 	map_group.selectAll("path").data(json.features)
 						 	 .enter()
 						  	 .append("path")
@@ -323,6 +329,7 @@ function drawMonuments(){
 	var scale;
 	data = document.getElementsByTagName("image");
 	//Transform of the map group, used to scale the circles
+	console.log(document.getElementById("zoom_group").getAttribute("transform"));
 	transform = document.getElementById("zoom_group").getAttribute("transform");
 	if(transform == null){
 		scale = 1;
