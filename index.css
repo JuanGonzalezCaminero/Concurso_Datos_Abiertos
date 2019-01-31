@@ -29,7 +29,7 @@ body{
 	box-sizing: border-box;
 }
 
-@media screen and (min-width: 1366px) {
+@media screen and (min-width: 1366px) and (max-width: 1366px) {
 	/*Firefox*/
 	@-moz-document url-prefix() {
 		.checkbox_div{
