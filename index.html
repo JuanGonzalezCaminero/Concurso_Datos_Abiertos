@@ -249,32 +249,16 @@
 																						 top: 4px;
 																						 margin-right: 5px;">
 					 Jardín Histórico
-					<button onclick="selectAll()" style="position: relative;
-					 						left: 40%;
-					 						top: 10px;
-					 						font-family: arial;
-					 						font-size: 12pt;
-					 						width: 53%;">
-					 <strong>Seleccionar todo</strong>
-					 </button>
 					 <br>
 				</div></nobr>
 			</label>
 			<label>
-				<nobr><div class = "checkbox_div" style="position: relative; top: -6px;">
+				<nobr><div class = "checkbox_div">
 					<input type="checkbox" class = "type_checkbox" id = "Sitio_historico" checked="true" onchange="selectionChanged(id, checked)">
 					<img src="book_grey.png" height="25px" width="25px" style="position: relative;
 																						 top: 4px;
 																						 margin-right: 5px;">
 					 Sitio Histórico
-					 <button onclick="deselectAll()" style="position: relative;
-					 						left: 45.2%;
-					 						top: 11.5px;
-					 						font-family: arial;
-					 						font-size: 12pt;
-					 						width: 53%;">
-					 <strong>Borrar selección</strong>
-					 </button>
 					 <br>
 				</div></nobr>
 			</label>
@@ -289,27 +273,332 @@
 				
 			</div>-->
 		</div>
-		<div class = "menu" id = "info_div" style="display: none;">
-			<p id = "info_name" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial;">
+		<button onclick = "showFilters()" id = "filters_button" style="position: absolute;
+						top: 0;
+						margin-top: 1.25%;
+						margin-left: 19.25%;
+						font-family: arial;
+				 		font-size: 12pt;
+				 		width: 8%;
+				 		display: initial;">
+				<strong>Más filtros</strong>
+			</button>
+
+		<div id = buttons_div>
+			<button onclick="selectAll()" style="font-family: arial;
+					 						font-size: 12pt;
+					 						width: 100%;
+					 						margin-bottom: 4%">
+				<strong>Seleccionar todo</strong>
+			</button>
+			<button onclick="deselectAll()" style="font-family: arial;
+													width: 100%;
+													font-size: 12pt;">
+				<strong>Borrar selección</strong>
+			</button>
+		</div>
+		<div class="menu" id = "filters_div" style="font-family: arial; display: none;">
+			<div style="float: left; width: 50%">
+				<p style="/*text-align: center;*/ margin-left: 8%; font-size: 14pt; font-family: arial;"><strong>Período</strong></p>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "No especificado" checked="true" onchange="periodFilterChanged(id, checked)">
+						 No especificado<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Prehistoria" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Prehistoria<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Paleolítico" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Paleolítico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Neolítico" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Neolítico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Postpaleolítico" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Postpaleolítico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Edad del Cobre" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Edad del Cobre<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Edad del Bronce" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Edad del Bronce<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Edad del Hierro" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Edad del Hierro<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Prerromano" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Prerromano<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Celta (Vetón)" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Celta (Vetón)<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Celta (Vacceo" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Celta (Vacceo<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Celtibérico (Arévaco)" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Celtibérico (Arévaco)<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Romano" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Romano<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Paleocristiano" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Paleocristiano<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Edad Media" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Edad Media<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Visigodo" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Visigodo<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Califal" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Califal<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Edad Moderna" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Edad Moderna<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "period_checkbox" id = "Edad Contemporánea" checked="true" onchange="periodFilterChanged(id, checked)">
+						 Edad Contemporánea<br>
+					</div>
+				</label>
+			</div>
+			<div style="float: right; width: 50%">
+				<p style="/*text-align: center;*/ margin-left: 8%; font-size: 14pt; font-family: arial;"><strong>Estilo predominante</strong></p>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Ninguno" checked="true" onchange="styleFilterChanged(id, checked)">
+						No especificado<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Clásico" checked="true" onchange="styleFilterChanged(id, checked)">
+						Clásico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Hispanovisigodo" checked="true" onchange="styleFilterChanged(id, checked)">
+						Hispanovisigodo<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Cisterciense" checked="true" onchange="styleFilterChanged(id, checked)">
+						Cisterciense<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Románico" checked="true" onchange="styleFilterChanged(id, checked)">
+						Románico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Gótico" checked="true" onchange="styleFilterChanged(id, checked)">
+						Gótico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Mozárabe" checked="true" onchange="styleFilterChanged(id, checked)">
+						Mozárabe<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Mudéjar" checked="true" onchange="styleFilterChanged(id, checked)">
+						Mudéjar<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Renacentista" checked="true" onchange="styleFilterChanged(id, checked)">
+						Renacentista<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Plateresco" checked="true" onchange="styleFilterChanged(id, checked)">
+						Plateresco<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Herreriano" checked="true" onchange="styleFilterChanged(id, checked)">
+						Herreriano<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Barroco" checked="true" onchange="styleFilterChanged(id, checked)">
+						Barroco<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Neoclásico" checked="true" onchange="styleFilterChanged(id, checked)">
+						Neoclásico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Romanticismo" checked="true" onchange="styleFilterChanged(id, checked)">
+						Romanticismo<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Arquitectura del Hierro y Cristal" checked="true" onchange="styleFilterChanged(id, checked)">
+						Arquitectura del Hierro y Cristal<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Neogótico" checked="true" onchange="styleFilterChanged(id, checked)">
+						Neogótico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Modernista" checked="true" onchange="styleFilterChanged(id, checked)">
+						Modernista<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Neorenacentista" checked="true" onchange="styleFilterChanged(id, checked)">
+						Neorenacentista<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Neomudéjar" checked="true" onchange="styleFilterChanged(id, checked)">
+						Neomudéjar<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Ecléctico" checked="true" onchange="styleFilterChanged(id, checked)">
+						Ecléctico<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Postcubismo" checked="true" onchange="styleFilterChanged(id, checked)">
+						Postcubismo<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Clasicismo" checked="true" onchange="styleFilterChanged(id, checked)">
+						Clasicismo<br>
+					</div>
+				</label>
+				<label>
+					<div class = "checkbox_div">
+						<input type="checkbox" class = "style_checkbox" id = "Moderno" checked="true" onchange="styleFilterChanged(id, checked)">
+						Moderno<br>
+					</div>
+				</label>
+			</div>
+			<div style="height: 12%; width: 100%; position: absolute; bottom: 0;">
+				<button onclick = "selectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%; margin-bottom: 1%">
+				<strong>Seleccionar todo</strong>
+				</button>
+				<button onclick="selectAllStyles()" style="font-size: 12pt; width: 27.5%; margin-left: 21%">
+				<strong>Seleccionar todo</strong>
+				</button>
+				<br>
+				<button onclick="deselectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%; margin-bottom: 1%">
+				<strong>Borrar seleccion</strong>
+				</button>
+				<button onclick="deselectAllStyles()" style="font-size: 12pt; width: 27.5%; margin-left: 21%">
+				<strong>Borrar seleccion</strong>
+				</button>
+				<button onclick = "hideFilters()" style="position: absolute; right: 0; bottom: 0; margin-right: 2%; margin-bottom: 2%; font-size: 12pt">
+				<strong>Cerrar</strong>
+				</button>
+			</div>
+		</div>
+		<div class = "menu" id = "info_div" style="display: none; overflow: auto; max-height: 95%;  font-family: arial;">
+			<p id = "info_name" style="margin-left: 2.5%; margin-top: 2.5%">
 			</p>
 			<p id = "info_description" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial; margin-right: 2.5%">
 			</p>
-			<p id = "info_id" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			<p id = "info_id" style="margin-left: 2.5%; margin-top: 2.5%">
 			Identificador:
 			</p>
-			<p id = "info_type" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			<p id = "info_type" style="margin-left: 2.5%; margin-top: 2.5%">
 			Tipo de monumento:
 			</p>
-			<p id = "info_period" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			<p id = "info_period" style="margin-left: 2.5%; margin-top: 2.5%">
 			Período:
 			</p>
-			<p id = "info_street" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			<p id = "info_style" style="margin-left: 2.5%; margin-top: 2.5%">
+			Estilo predominante:
+			</p>
+			<p id = "info_street" style="margin-left: 2.5%; margin-top: 2.5%">
 			Calle:
 			</p>
-			<p id = "info_coordinates" style="margin-left: 2.5%; margin-top: 2.5%; font-family: arial">
+			<p id = "info_coordinates" style="margin-left: 2.5%; margin-top: 2.5%">
 			Coordenadas:
 			</p>
-			<p id = "info_poblacion" style="margin-left: 2.5%; margin-top: 2.5%; margin-bottom: 10%;font-family: arial">
+			<p id = "info_poblacion" style="margin-left: 2.5%; margin-top: 2.5%; margin-bottom: 10%">
 			Poblacion:
 			</p>
 
@@ -318,13 +607,10 @@
 					 						bottom: 0;
 					 						margin-right: 1.5%;
 					 						margin-bottom: 1.5%;
-					 						font-family: arial;
 					 						font-size: 12pt;">
-			<strong>Ocultar</strong>
+			<strong>Cerrar</strong>
 			</button>
 		</div>
-		<br>
-		<div></div>
 	</div>
 	
 

@@ -33,7 +33,7 @@ body{
 @-moz-document url-prefix() {
 	.checkbox_div{
 		height: 3.445%;
-		padding-left: 20px;
+		padding-left: 6%;
 		padding-top: 2.5px;
 		padding-bottom: 2.5px;
 	}
@@ -42,7 +42,7 @@ body{
 /*Chrome*/
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
 	.checkbox_div{
-		padding-left: 20px;
+		padding-left: 6%;
 		padding-top: 2.5px;
 		padding-bottom: 2.5px;
 	}
@@ -68,21 +68,59 @@ body{
 	height: 15px;
 }
 
-#controls_div{width: 16.75%;
-		height: 95%;
-		margin-top: 1.25%;
-		margin-bottom: 1.25%;
-		margin-left: 1.25%;
-		padding: 0px;
-		box-sizing: border-box;
-		position: absolute;
-		font-size: 14pt;
-		font-family: arial;
-		-moz-user-select: none;
-		-webkit-user-select: none; 
-		-ms-user-select:none;
-		user-select:none;
-		-o-user-select:none;
+.period_checkbox{
+	width: 15px;
+	height: 15px;
+}
+
+.style_checkbox{
+	width: 15px;
+	height: 15px;
+}
+
+#filters_div{
+	background-color: rgba(114, 141, 165, 0.97);
+	width: 30%;
+	height: 85%;
+	position: absolute;
+	margin-left: 19.25%;
+	margin-top: 1.25%;
+	-moz-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select:none;
+	user-select:none;
+	-o-user-select:none;
+}
+
+#buttons_div{
+	margin-left: 19.25%;
+	width: 8%;
+	position: absolute;
+	margin-bottom: 1.25%;
+	bottom: 0;
+	-moz-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select:none;
+	user-select:none;
+	-o-user-select:none;
+}
+
+#controls_div{
+	width: 16.75%;
+	height: 95%;
+	margin-top: 1.25%;
+	margin-bottom: 1.25%;
+	margin-left: 1.25%;
+	padding: 0px;
+	box-sizing: border-box;
+	position: absolute;
+	font-size: 14pt;
+	font-family: arial;
+	-moz-user-select: none;
+	-webkit-user-select: none; 
+	-ms-user-select:none;
+	user-select:none;
+	-o-user-select:none;
 }
 
 #info_div{
@@ -100,6 +138,8 @@ body{
 
 button{
 	background-color: #728DA5;
-	border: 4px solid #041F37;
+	/*border: 4px solid #041F37;
+	border-radius: 5px;*/
+	border: 3.5px solid #041F37;
 	border-radius: 5px;
 }

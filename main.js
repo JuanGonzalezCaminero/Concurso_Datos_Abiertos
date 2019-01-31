@@ -64,13 +64,37 @@ function hideInfo(){
 
 function selectAll(){
 	d3.selectAll(".type_checkbox").property("checked", true);
-	d3.select("#svg").selectAll("image").attr("data-draw", true);
+	d3.select("#svg").selectAll("image").attr("data-type_selected", true);
 	drawMonuments();
 }
 
 function deselectAll(){
 	d3.selectAll(".type_checkbox").property("checked", false);
-	d3.select("#svg").selectAll("image").attr("data-draw", false);
+	d3.select("#svg").selectAll("image").attr("data-type_selected", false);
+	drawMonuments();
+}
+
+function selectAllPeriods(){
+	d3.selectAll(".period_checkbox").property("checked", true);
+	d3.select("#svg").selectAll("image").attr("data-period_selected", true);
+	drawMonuments();
+}
+
+function selectAllStyles(){
+	d3.selectAll(".style_checkbox").property("checked", true);
+	d3.select("#svg").selectAll("image").attr("data-style_selected", true);
+	drawMonuments();
+}
+
+function deselectAllPeriods(){
+	d3.selectAll(".period_checkbox").property("checked", false);
+	d3.select("#svg").selectAll("image").attr("data-period_selected", false);
+	drawMonuments();
+}
+
+function deselectAllStyles(){
+	d3.selectAll(".style_checkbox").property("checked", false);
+	d3.select("#svg").selectAll("image").attr("data-style_selected", false);
 	drawMonuments();
 }
 
@@ -79,7 +103,35 @@ function selectionChanged(id, checked){
 	for(i = 0; i < data.length; i++){
 		d = data[i];
 		if(d.dataset.type == id){
-			d.dataset.draw = checked;
+			d.dataset.type_selected = checked;
+		}
+	}
+	drawMonuments();
+}
+
+function styleFilterChanged(id, checked){
+	data = document.getElementsByTagName("image");
+	for(i = 0; i < data.length; i++){
+		d = data[i];
+		if(d.dataset.style == undefined){
+			continue;
+		}
+		if(d.dataset.style.includes(id)){
+			d.dataset.style_selected = checked;
+		}
+	}
+	drawMonuments();
+}
+
+function periodFilterChanged(id, checked){
+	data = document.getElementsByTagName("image");
+	for(i = 0; i < data.length; i++){
+		d = data[i];
+		if(d.dataset.historical_period == undefined){
+			continue;
+		}
+		if(d.dataset.historical_period.includes(id)){
+			d.dataset.period_selected = checked;
 		}
 	}
 	drawMonuments();
@@ -209,6 +261,7 @@ function loadMonuments(data){
 		var type = d.tipoMonumento;
 		var id_bic = d.identificadorBienInteresCultural;
 		var street = d.calle;
+		var style = d.estiloPredominante;
 		var classification = d.clasificacion;
 		var building_type = d.tipoConstruccion;
 		var postal_code = d.codigoPostal;
@@ -238,7 +291,9 @@ function loadMonuments(data){
 						.attr("data-y", projected_coords[1])
 						.attr("data-offset", half_base_size)
 						.attr("data-type", tipo_monumento)
-						.attr("data-draw", true)
+						.attr("data-type_selected", true)
+						.attr("data-style_selected", true)
+						.attr("data-period_selected", true)
 						.attr("data-mouseover", false)
 						.attr("data-id", id)
 						.attr("data-name", name)
@@ -255,13 +310,24 @@ function loadMonuments(data){
 						.attr("data-localidad", localidad)
 						.attr("data-latitude", latitude)
 						.attr("data-longitude", longitude)
-						.attr("data-base_src", image_src);
+						.attr("data-base_src", image_src)
+						.attr("data-style", style);
 						//.attr("data-alt_src", image_src_alt);
 	}
 
 	initializeTooltips();
 	//Drawing the circles
 	//drawCircles();
+}
+
+function showFilters(){
+	document.getElementById("filters_button").style.display = "none";
+	document.getElementById("filters_div").style.display = "initial";
+}
+
+function hideFilters(){
+	document.getElementById("filters_button").style.display = "initial";
+	document.getElementById("filters_div").style.display = "none";
 }
 
 function showMonumentInfo(id){
@@ -286,7 +352,16 @@ function showMonumentInfo(id){
 															d.dataset.localidad + ", " + 
 															d.dataset.municipality + ", " + 
 															d.dataset.province;
-	document.getElementById("info_period").innerHTML = "Período: " + d.dataset.historical_period;
+	if(d.dataset.style != undefined){
+		document.getElementById("info_style").innerHTML = "Estilo predominante: " + d.dataset.style;
+	}else{
+		document.getElementById("info_style").innerHTML = ""
+	}
+	if(d.dataset.historical_period != undefined){
+		document.getElementById("info_period").innerHTML = "Período: " + d.dataset.historical_period;
+	}else{
+		document.getElementById("info_period").innerHTML = ""
+	}
 	//console.log(d);
 }
 
@@ -341,7 +416,7 @@ function drawMonuments(){
 
 	for(i = 0; i < data.length; i++){
 		d = data[i];
-		if(d.dataset.draw != "true"){
+		if(d.dataset.type_selected == "false" || d.dataset.period_selected == "false" || d.dataset.style_selected == "false"){
 			d.setAttribute("width", 0);
 			d.setAttribute("height", 0);
 			continue;
