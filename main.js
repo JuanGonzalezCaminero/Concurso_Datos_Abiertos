@@ -4,7 +4,7 @@ var svg = d3.select("svg");
 var map_group = svg.select("#map_group");
 var data_group = svg.select("#data_group");
 var monuments;
-var base_size = 20;
+var base_size = 25;
 var mouseover_increase = 10;
 var half_base_size = Math.floor(base_size / 2);
 //var svg_height = document.getElementById("svg").height.baseVal.value;
@@ -225,6 +225,7 @@ function loadMonuments(data){
 						.attr("xlink:href", image_src)
 						.attr("x", projected_coords[0] - half_base_size)
 						.attr("y", projected_coords[1] - half_base_size)
+						.attr("preserveAspectRatio", "xMinYMin")
 						.attr("width", base_size)
 						.attr("height", base_size)
 						.attr("id", id + type)
