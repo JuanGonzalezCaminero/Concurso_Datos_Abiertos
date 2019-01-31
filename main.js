@@ -157,104 +157,104 @@ function loadMonuments(data){
 		d = data[i];
 		switch(d.tipoMonumento){
 			case "Catedrales":
-				image_src = "cathedral_grey.png";
+				image_src = "Assets/Images/cathedral_grey.png";
 				tipo_monumento = "Catedrales";
 				break;
 			case "Iglesias y Ermitas":
-				image_src = "church_grey.png";
+				image_src = "Assets/Images/church_grey.png";
 				tipo_monumento = "Iglesias_y_ermitas";
 				break;
 			case "Castillos":
-				image_src = "castle_grey.png";
+				image_src = "Assets/Images/castle_grey.png";
 				image_src_alt = "castle_alt.png"
 				tipo_monumento = "Castillos";
 				break;
 			case "Monasterios":
-				image_src = "monastery_grey.png";
+				image_src = "Assets/Images/monastery_grey.png";
 				tipo_monumento = "Monasterios";
 				break;
 			case "Yacimientos arqueológicos":
-				image_src = "archaeological_site_grey.png";
+				image_src = "Assets/Images/archaeological_site_grey.png";
 				tipo_monumento = "Yacimientos_arqueologicos";
 				break;
 			case "Reales Sitios":
-				image_src = "crown_grey.png";
+				image_src = "Assets/Images/crown_grey.png";
 				tipo_monumento = "Reales_sitios";
 				break;
 			case "Casas Consistoriales":
-				image_src = "town_hall_grey.png";
+				image_src = "Assets/Images/town_hall_grey.png";
 				tipo_monumento = "Casas_consistoriales";
 				break;
 			case "Plazas Mayores":
-				image_src = "square_grey.png";
+				image_src = "Assets/Images/square_grey.png";
 				tipo_monumento = "Plazas_mayores";
 				break;
 			case "Palacios":
-				image_src = "palace_grey.png";
+				image_src = "Assets/Images/palace_grey.png";
 				tipo_monumento = "Palacios";
 				break;
 			case "Sinagogas":
-				image_src = "star_of_david_grey.png";
+				image_src = "Assets/Images/star_of_david_grey.png";
 				tipo_monumento = "Sinagogas";
 				break;
 			case "Casas Nobles":
-				image_src = "noble_house_grey.png";
+				image_src = "Assets/Images/noble_house_grey.png";
 				tipo_monumento = "Casas_nobles";
 				break;
 			case "Santuarios":
-				image_src = "sanctuary_grey.png";
+				image_src = "Assets/Images/sanctuary_grey.png";
 				tipo_monumento = "Santuarios";
 				break;
 			case "Molinos":
-				image_src = "mill_grey.png";
+				image_src = "Assets/Images/mill_grey.png";
 				tipo_monumento = "Molinos";
 				break;
 			case "Cruceros":
-				image_src = "cross_grey.png";
+				image_src = "Assets/Images/cross_grey.png";
 				tipo_monumento = "Cruceros";
 				break;
 			case "Fuentes":
-				image_src = "fountain_grey.png";
+				image_src = "Assets/Images/fountain_grey.png";
 				tipo_monumento = "Fuentes";
 				break;
 			case "Hórreos":
-				image_src = "horreo_grey.png";
+				image_src = "Assets/Images/horreo_grey.png";
 				tipo_monumento = "Horreos";
 				break;
 			case "Murallas y puertas":
-				image_src = "wall_grey.png";
+				image_src = "Assets/Images/wall_grey.png";
 				tipo_monumento = "Murallas_y_puertas";
 				break;
 			case "Torres":
-				image_src = "tower_grey.png";
+				image_src = "Assets/Images/tower_grey.png";
 				tipo_monumento = "Torres";
 				break;
 			case "Puentes":
-				image_src = "bridge_grey.png";
+				image_src = "Assets/Images/bridge_grey.png";
 				tipo_monumento = "Puentes";
 				break;
 			case "Esculturas":
-				image_src = "statue_grey.png";
+				image_src = "Assets/Images/statue_grey.png";
 				tipo_monumento = "Esculturas";
 				break;
 			case "Otros edificios":
-				image_src = "others_grey.png";
+				image_src = "Assets/Images/others_grey.png";
 				tipo_monumento = "Otros_edificios";
 				break;
 			case "Paraje pintoresco":
-				image_src = "scenery_grey.png";
+				image_src = "Assets/Images/scenery_grey.png";
 				tipo_monumento = "Paraje_pintoresco";
 				break;
 			case "Jardín Histórico":
-				image_src = "flower_grey.png";
+				image_src = "Assets/Images/flower_grey.png";
 				tipo_monumento = "Jardin_historico";
 				break;
 			case "Sitio Histórico":
-				image_src = "book_grey.png";
+				image_src = "Assets/Images/book_grey.png";
 				tipo_monumento = "Sitio_historico";
 				break;
 			case "Conjunto Etnológico":
-				image_src = "man_grey.png";
+				image_src = "Assets/Images/man_grey.png";
 				tipo_monumento = "Conjunto_etnologico";
 				break;
 			//default:
@@ -414,7 +414,6 @@ function drawMonuments(){
 	var scale;
 	data = document.getElementsByTagName("image");
 	//Transform of the map group, used to scale the circles
-	console.log(document.getElementById("zoom_group").getAttribute("transform"));
 	transform = document.getElementById("zoom_group").getAttribute("transform");
 	if(transform == null){
 		scale = 1;
