@@ -7,18 +7,18 @@ var monuments;
 var base_size = 25;
 var mouseover_increase = 10;
 var half_base_size = Math.floor(base_size / 2);
-//var svg_height = document.getElementById("svg").height.baseVal.value;
-//var svg_width = document.getElementById("svg").width.baseVal.value;
 var svg_height = document.getElementById("svg").parentNode.clientHeight;
 var svg_width = document.getElementById("svg").parentNode.clientWidth;
 var info_div = document.getElementById("info_div");
-//var projection = d3.geoMercator();
-
 var projection = d3.geoMercator().translate([document.getElementById("svg").parentNode.clientWidth/2, document.getElementById("svg").parentNode.clientHeight/2])
 									 		  .scale(10000)
 									 		  .center([-4.7285413, 41.6522966]);
-
 var map_color = "#FFEDAA";
+//This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
+svg.call(d3.zoom().scaleExtent([1, 180])
+				  .extent([[0, 0], [svg_width, svg_height]])
+				  .translateExtent([[-svg_width * 0.5, -svg_height * 0.5], [svg_width * 1.5, svg_height * 1.5]])
+				  .on("zoom", map_zoom));
 
 //Drawing the map
 d3.json("Castile and León_AL6.GeoJson", function(json){
@@ -449,8 +449,4 @@ function map_zoom() {
    //Re-draw the monuments
    drawMonuments(monuments);
 }
-//This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
-svg.call(d3.zoom().scaleExtent([1, 180])
-				  .extent([[0, 0], [svg_width, svg_height]])
-				  .translateExtent([[-svg_width * 0.5, -svg_height * 0.5], [svg_width * 1.5, svg_height * 1.5]])
-				  .on("zoom", map_zoom));
+
