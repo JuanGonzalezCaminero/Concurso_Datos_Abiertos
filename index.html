@@ -25,6 +25,8 @@
 	<link rel="stylesheet" type="text/css" href="tooltipster/dist/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-borderless_custom.min.css" />
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+    <script src="wikidata-sdk.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.6.1/js/all.js" integrity="sha384-R5JkiUweZpJjELPWqttAYmYM1P3SNEJRM6ecTQF05pFFtxmCO+Y1CiUhvuDzgSVZ" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class = "background" id = "main_div">
@@ -274,23 +276,27 @@
 			</div>-->
 		</div>
 		<button onclick = "showFilters()" id = "filters_button">
-				<strong>Más filtros</strong>
+				Más filtros
 			</button>
 
 		<div id = buttons_div>
 			<button onclick="selectAll()" style="font-family: arial;
 					 						font-size: 12pt;
 					 						width: 100%;
-					 						margin-bottom: 4%">
-				<strong>Seleccionar todo</strong>
+					 						margin-bottom: 8%">
+				Seleccionar todo
 			</button>
 			<button onclick="deselectAll()" style="font-family: arial;
 													width: 100%;
 													font-size: 12pt;">
-				<strong>Borrar selección</strong>
+				Borrar selección
 			</button>
 		</div>
 		<div class="menu" id = "filters_div" style="font-family: arial; display: none;">
+			<button id = "close_filters" onclick = "hideFilters()">
+				<i class="fa fa-times"></i>
+			</button>
+			
 			<div style="float: left; width: 50%">
 				<p id = "header_period" style="/*text-align: center;*/ margin-left: 8%; font-size: 14pt; font-family: arial;"><strong>Período</strong></p>
 				<label>
@@ -550,21 +556,18 @@
 				</label>
 			</div>
 			<div style="height: 12%; width: 100%; position: absolute; bottom: 0;">
-				<button class = "filters_button" onclick = "selectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%; margin-bottom: 1%">
-				<strong>Seleccionar todo</strong>
+				<button class = "filters_button" onclick = "selectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%; margin-bottom: 2%">
+				Seleccionar todo
 				</button>
-				<button class = "filters_button" onclick="selectAllStyles()" style="font-size: 12pt; width: 27.5%; margin-left: 21%">
-				<strong>Seleccionar todo</strong>
+				<button class = "filters_button" onclick="selectAllStyles()" style="font-size: 12pt; width: 27.5%; margin-left: 21%; margin-bottom: 2%">
+				Seleccionar todo
 				</button>
 				<br>
-				<button class = "filters_button" onclick="deselectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%; margin-bottom: 1%">
-				<strong>Borrar seleccion</strong>
+				<button class = "filters_button" onclick="deselectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%">
+				Borrar seleccion
 				</button>
 				<button  class = "filters_button" onclick="deselectAllStyles()" style="font-size: 12pt; width: 27.5%; margin-left: 21%">
-				<strong>Borrar seleccion</strong>
-				</button>
-				<button onclick = "hideFilters()" style="position: absolute; right: 0; bottom: 0; margin-right: 2%; margin-bottom: 2%; font-size: 12pt">
-				<strong>Cerrar</strong>
+				Borrar seleccion
 				</button>
 			</div>
 		</div>
@@ -594,25 +597,15 @@
 			<p id = "info_poblacion" style="margin-left: 2.5%; margin-top: 2.5%; margin-bottom: 10%">
 			Poblacion:
 			</p>
-			<div style="position: relative;">
-				<button class = "button" onclick = "hideInfo()" style="position: absolute;
-					 						right: 0;
-					 						bottom: 0;
-					 						margin-right: 1.5%;
-					 						margin-bottom: 1.5%;
-					 						font-size: 12pt;">
-				<strong>Cerrar</strong>
-				</button>
-			</div>
+			<button id = "close_info" class = "button" onclick = "hideInfo()">
+			<i class="fa fa-times"></i>
+			</button>
 		</div>
-		<p style="position: absolute;
-					bottom: 0;
-					left: 50%;
-					-webkit-transform: translateX(-50%);
-					transform: translateX(-50%);
-					font-family: arial;
-					font-size: 12pt">
-		Juan González Caminero, 2018. Fuente: <a href="https://datosabiertos.jcyl.es/web/jcyl/RISP/es/Plantilla100/1284162055979/_/_/_">Datos abiertos JCyL</a>
+		<p id = "title">
+		Monumentos de Castilla y León
+		</p>
+		<p id = "disclaimer">
+		Juan González Caminero, 2018. Fuente: <a style = "color: #909090" href="https://datosabiertos.jcyl.es/web/jcyl/RISP/es/Plantilla100/1284162055979/_/_/_">Datos abiertos JCyL</a>
 		</p>
 	</div>
 	

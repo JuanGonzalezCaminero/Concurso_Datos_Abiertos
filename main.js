@@ -13,24 +13,41 @@ var info_div = document.getElementById("info_div");
 var projection = d3.geoMercator().translate([document.getElementById("svg").parentNode.clientWidth/2, document.getElementById("svg").parentNode.clientHeight/2])
 									 		  .scale(10000)
 									 		  .center([-4.7285413, 41.6522966]);
-var map_color = "#FFEDAA";
+var map_color = "#fff4fd";
+var map_stroke_color = "#000000";
+
+var query = `SELECT ?item ?itemLabel 
+WHERE 
+{
+  ?item wdt:P31 wd:Q146.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}`
+
+var q = `SELECT ?imagen WHERE {
+  ?item wdt:P3177 "898".
+  OPTIONAL { ?item wdt:P18 ?imagen. }
+}`
+
+console.log(wdk.sparqlQuery('SELECT ?imagen WHERE {?item wdt:P3177 "898". OPTIONAL { ?item wdt:P18 ?imagen. }}'));
+fetch(wdk.sparqlQuery(q), {method: 'GET'}).then(function(response){
+	console.log(response);
+});
+
 //This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
-svg.call(d3.zoom().scaleExtent([1, 180])
+svg.call(d3.zoom().scaleExtent([1, 450])
 				  .extent([[0, 0], [svg_width, svg_height]])
 				  .translateExtent([[-svg_width * 0.5, -svg_height * 0.5], [svg_width * 1.5, svg_height * 1.5]])
 				  .on("zoom", map_zoom));
 
 //Drawing the map
 d3.json("Castile and León_AL6.GeoJson", function(json){
-	//console.log(document.getElementById("svg").parentNode.clientWidth, document.getElementById("svg").parentNode.clientHeight);
-	//projection.fitExtent([[0, 0], [document.getElementById("svg").parentNode.clientWidth, document.getElementById("svg").parentNode.clientHeight]], json);
 	map_group.selectAll("path").data(json.features)
 						 	 .enter()
 						  	 .append("path")
 						 	 .attr("d", d3.geoPath().projection(projection))
 						 	 .attr("vector-effect", "non-scaling-stroke")
 						 	 .attr("fill", function(d, i){return map_color})
-						 	 .attr("stroke", "#041F37")
+						 	 .attr("stroke", map_stroke_color)
 						 	 .attr("stroke-width", "1px");
 });
 
@@ -54,7 +71,7 @@ function initializeTooltips(){
 		triggerClose: { // close tooltip when element is clicked again, tapped or when the mouse leaves it
 			mouseleave: true
 		},
-		theme: ['tooltipster-light', 'tooltipster-light-custom']
+		theme: ['tooltipster-light'/*, 'tooltipster-light-custom'*/]
   	});
 }
 
