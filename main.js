@@ -16,22 +16,12 @@ var projection = d3.geoMercator().translate([document.getElementById("svg").pare
 var map_color = "#fff4fd";
 var map_stroke_color = "#000000";
 
-var query = `SELECT ?item ?itemLabel 
-WHERE 
-{
-  ?item wdt:P31 wd:Q146.
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-}`
+const query_h1 = `SELECT ?imagen WHERE {
+  ?item wdt:P3177 `
 
-var q = `SELECT ?imagen WHERE {
-  ?item wdt:P3177 "898".
+const query_h2 = `.
   OPTIONAL { ?item wdt:P18 ?imagen. }
 }`
-
-console.log(wdk.sparqlQuery('SELECT ?imagen WHERE {?item wdt:P3177 "898". OPTIONAL { ?item wdt:P18 ?imagen. }}'));
-fetch(wdk.sparqlQuery(q), {method: 'GET'}).then(function(response){
-	console.log(response);
-});
 
 //This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
 svg.call(d3.zoom().scaleExtent([1, 450])
@@ -388,7 +378,25 @@ function showMonumentInfo(id){
 	}else{
 		document.getElementById("info_period").innerHTML = ""
 	}
+
+	fetch(wdk.sparqlQuery(query_h1 + "\"" + d.dataset.id_bic + "\"" + query_h2)).then(function(response){
+			return response.json();
+	}).then(function(responseJson){
+		image_url = wdk.simplify.sparqlResults(responseJson)[0];
+		if(image_url != undefined){
+			document.getElementById("spinner").style.display = "block";
+			document.getElementById("info_image").style.display = "none";
+			document.getElementById("info_image").src = image_url;
+		}else{
+			document.getElementById("info_image").style.display = "none";
+		}
+	});
 	//console.log(d);
+}
+
+function imageLoaded(){
+	document.getElementById("spinner").style.display = "none";
+	document.getElementById("info_image").style.display = "initial";
 }
 
 function mouseOverMonument(id){
