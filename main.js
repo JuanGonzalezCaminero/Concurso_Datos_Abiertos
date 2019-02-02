@@ -16,14 +16,24 @@ var projection = d3.geoMercator().translate([document.getElementById("svg").pare
 var map_color = "#fff4fd";
 var map_stroke_color = "#000000";
 
+var selected_element = undefined;
+
 //Safari detection
 var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
 
-const query_h1 = `SELECT ?imagen WHERE {
-  ?item wdt:P3177 `
+const query_h1 = `
+SELECT ?imagen ?article WHERE {
+    ?item wdt:P3177 `
 
 const query_h2 = `.
-  OPTIONAL { ?item wdt:P18 ?imagen. }
+    OPTIONAL {
+      ?item wdt:P18 ?imagen.
+     }
+     OPTIONAL{
+      ?article schema:about ?item .
+      ?article schema:inLanguage "es" .
+      ?article schema:isPartOf <https://es.wikipedia.org/> .
+    }
 }`
 
 //This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
@@ -69,7 +79,19 @@ function initializeTooltips(){
 }
 
 function hideInfo(){
-	console.log(document.getElementById("info_div").style.display = "none");
+	document.getElementById("info_div").style.display = "none";
+	if(selected_element != undefined){
+		previous_selected_element = selected_element;
+		selected_element.setAttribute("href", previous_selected_element.dataset.base_src);
+		selected_element = undefined;
+		mouseOutMonument(previous_selected_element.dataset.id + previous_selected_element.dataset.type_info);
+		if(previous_selected_element.dataset.type_selected == "false" 
+				|| previous_selected_element.dataset.period_selected == "false" 
+				|| previous_selected_element.dataset.style_selected == "false"){
+				previous_selected_element.setAttribute("width", 0);
+				previous_selected_element.setAttribute("height", 0);
+			}
+	}
 }
 
 function selectAll(){
@@ -158,113 +180,137 @@ function periodFilterChanged(id, checked){
 
 function loadMonuments(data){
 	var image_src;
-	//var image_src_alt;
+	var image_src_alt;
 
 	for(let i = 0; i < data.length; i++){
 		image_src = "";
-		//image_src_alt = "";
+		image_src_alt = "";
 		let tipo_monumento;
 		d = data[i];
 		switch(d.tipoMonumento){
 			case "Catedrales":
 				image_src = "Assets/Images/cathedral_grey.png";
+				image_src_alt = "Assets/Images/cathedral_alt.png";
 				tipo_monumento = "Catedrales";
 				break;
 			case "Iglesias y Ermitas":
 				image_src = "Assets/Images/church_grey.png";
+				image_src_alt = "Assets/Images/church_alt.png";
 				tipo_monumento = "Iglesias_y_ermitas";
 				break;
 			case "Castillos":
 				image_src = "Assets/Images/castle_grey.png";
-				image_src_alt = "castle_alt.png"
+				image_src_alt = "Assets/Images/castle_alt.png";
 				tipo_monumento = "Castillos";
 				break;
 			case "Monasterios":
 				image_src = "Assets/Images/monastery_grey.png";
+				image_src_alt = "Assets/Images/monastery_alt.png";
 				tipo_monumento = "Monasterios";
 				break;
 			case "Yacimientos arqueológicos":
 				image_src = "Assets/Images/archaeological_site_grey.png";
+				image_src_alt = "Assets/Images/archaeological_site_alt.png";
 				tipo_monumento = "Yacimientos_arqueologicos";
 				break;
 			case "Reales Sitios":
 				image_src = "Assets/Images/crown_grey.png";
+				image_src_alt = "Assets/Images/crown_alt.png";
 				tipo_monumento = "Reales_sitios";
 				break;
 			case "Casas Consistoriales":
 				image_src = "Assets/Images/town_hall_grey.png";
+				image_src_alt = "Assets/Images/town_hall_alt.png";
 				tipo_monumento = "Casas_consistoriales";
 				break;
 			case "Plazas Mayores":
 				image_src = "Assets/Images/square_grey.png";
+				image_src_alt = "Assets/Images/square_alt.png";
 				tipo_monumento = "Plazas_mayores";
 				break;
 			case "Palacios":
 				image_src = "Assets/Images/palace_grey.png";
+				image_src_alt = "Assets/Images/palace_alt.png";
 				tipo_monumento = "Palacios";
 				break;
 			case "Sinagogas":
 				image_src = "Assets/Images/star_of_david_grey.png";
+				image_src_alt = "Assets/Images/star_of_david_alt.png";
 				tipo_monumento = "Sinagogas";
 				break;
 			case "Casas Nobles":
 				image_src = "Assets/Images/noble_house_grey.png";
+				image_src_alt = "Assets/Images/noble_house_alt.png";
 				tipo_monumento = "Casas_nobles";
 				break;
 			case "Santuarios":
 				image_src = "Assets/Images/sanctuary_grey.png";
+				image_src_alt = "Assets/Images/sanctuary_alt.png";
 				tipo_monumento = "Santuarios";
 				break;
 			case "Molinos":
 				image_src = "Assets/Images/mill_grey.png";
+				image_src_alt = "Assets/Images/mill_alt.png";
 				tipo_monumento = "Molinos";
 				break;
 			case "Cruceros":
 				image_src = "Assets/Images/cross_grey.png";
+				image_src_alt = "Assets/Images/cross_alt.png";
 				tipo_monumento = "Cruceros";
 				break;
 			case "Fuentes":
 				image_src = "Assets/Images/fountain_grey.png";
+				image_src_alt = "Assets/Images/fountain_alt.png";
 				tipo_monumento = "Fuentes";
 				break;
 			case "Hórreos":
 				image_src = "Assets/Images/horreo_grey.png";
+				image_src_alt = "Assets/Images/horreo_alt.png";
 				tipo_monumento = "Horreos";
 				break;
 			case "Murallas y puertas":
 				image_src = "Assets/Images/wall_grey.png";
+				image_src_alt = "Assets/Images/wall_alt.png";
 				tipo_monumento = "Murallas_y_puertas";
 				break;
 			case "Torres":
 				image_src = "Assets/Images/tower_grey.png";
+				image_src_alt = "Assets/Images/tower_alt.png";
 				tipo_monumento = "Torres";
 				break;
 			case "Puentes":
 				image_src = "Assets/Images/bridge_grey.png";
+				image_src_alt = "Assets/Images/bridge_alt.png";
 				tipo_monumento = "Puentes";
 				break;
 			case "Esculturas":
 				image_src = "Assets/Images/statue_grey.png";
+				image_src_alt = "Assets/Images/statue_alt.png";
 				tipo_monumento = "Esculturas";
 				break;
 			case "Otros edificios":
 				image_src = "Assets/Images/others_grey.png";
+				image_src_alt = "Assets/Images/others_alt.png";
 				tipo_monumento = "Otros_edificios";
 				break;
 			case "Paraje pintoresco":
 				image_src = "Assets/Images/scenery_grey.png";
+				image_src_alt = "Assets/Images/scenery_alt.png";
 				tipo_monumento = "Paraje_pintoresco";
 				break;
 			case "Jardín Histórico":
 				image_src = "Assets/Images/flower_grey.png";
+				image_src_alt = "Assets/Images/flower_alt.png";
 				tipo_monumento = "Jardin_historico";
 				break;
 			case "Sitio Histórico":
 				image_src = "Assets/Images/book_grey.png";
+				image_src_alt = "Assets/Images/book_alt.png";
 				tipo_monumento = "Sitio_historico";
 				break;
 			case "Conjunto Etnológico":
 				image_src = "Assets/Images/man_grey.png";
+				image_src_alt = "Assets/Images/man_alt.png";
 				tipo_monumento = "Conjunto_etnologico";
 				break;
 			//default:
@@ -309,7 +355,7 @@ function loadMonuments(data){
 						.attr("data-x", projected_coords[0])
 						.attr("data-y", projected_coords[1])
 						.attr("data-offset", half_base_size)
-						.attr("data-type", tipo_monumento)
+						.attr("data-type",  tipo_monumento)
 						.attr("data-type_selected", true)
 						.attr("data-style_selected", true)
 						.attr("data-period_selected", true)
@@ -330,8 +376,8 @@ function loadMonuments(data){
 						.attr("data-latitude", latitude)
 						.attr("data-longitude", longitude)
 						.attr("data-base_src", image_src)
-						.attr("data-style", style);
-						//.attr("data-alt_src", image_src_alt);
+						.attr("data-style", style)
+						.attr("data-alt_src", image_src_alt);
 	}
 
 	//If the user's browser is safari, the handlers in these images won't work because the images
@@ -384,10 +430,26 @@ function hideFilters(){
 function showMonumentInfo(id){
 	document.getElementById("info_div").style.display = "initial";
 	var d = document.getElementById(id);
+
+	previous_selected_element = selected_element;
+	selected_element = d;
+	d.setAttribute("href", d.dataset.alt_src);
+	if(previous_selected_element != d){
+		if(previous_selected_element != undefined){
+			previous_selected_element.setAttribute("href", previous_selected_element.dataset.base_src);
+			mouseOutMonument(previous_selected_element.dataset.id + previous_selected_element.dataset.type_info);
+			if(previous_selected_element.dataset.type_selected == "false" 
+				|| previous_selected_element.dataset.period_selected == "false" 
+				|| previous_selected_element.dataset.style_selected == "false"){
+				previous_selected_element.setAttribute("width", 0);
+				previous_selected_element.setAttribute("height", 0);
+			}
+		}
+	}
+
 	//d.setAttribute("href", d.dataset.alt_src);
 	document.getElementById("info_name").innerHTML = "<strong>"+d.dataset.name+"</strong>";
 	document.getElementById("info_id").innerHTML = "Identificador: " + d.dataset.id;
-	document.getElementById("info_type").innerHTML = "Tipo de monumento: " + d.dataset.type_info;
 	if(d.dataset.street != undefined){
 		document.getElementById("info_street").innerHTML = "Calle: " + d.dataset.street;
 	}else{
@@ -417,7 +479,20 @@ function showMonumentInfo(id){
 	fetch(wdk.sparqlQuery(query_h1 + "\"" + d.dataset.id_bic + "\"" + query_h2)).then(function(response){
 			return response.json();
 	}).then(function(responseJson){
-		image_url = wdk.simplify.sparqlResults(responseJson)[0];
+		if(wdk.simplify.sparqlResults(responseJson)[0] == undefined){
+			document.getElementById("info_wikipedia").innerHTML = "";
+			document.getElementById("info_image").style.display = "none";
+			return;
+		}
+		image_url = wdk.simplify.sparqlResults(responseJson)[0].imagen;
+		article_url = wdk.simplify.sparqlResults(responseJson)[0].article;
+		if(article_url != undefined){
+			document.getElementById("info_wikipedia").innerHTML = "Más información";
+			document.getElementById("info_wikipedia").href = article_url;
+		}else{
+			document.getElementById("info_wikipedia").innerHTML = "";
+		}
+
 		if(image_url != undefined){
 			document.getElementById("spinner").style.display = "block";
 			document.getElementById("info_image").style.display = "none";
@@ -453,6 +528,10 @@ function mouseOverMonument(id){
 }
 
 function mouseOutMonument(id){
+	if(document.getElementById(id) == selected_element){
+		return;
+	}
+
 	var scale;
 	transform = document.getElementById("zoom_group").getAttribute("transform");
 	if(transform == null){
