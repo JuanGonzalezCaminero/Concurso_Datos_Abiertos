@@ -333,6 +333,7 @@ function loadMonuments(data){
 						.attr("data-style", style);
 						//.attr("data-alt_src", image_src_alt);
 	}
+
 	//If the user's browser is safari, the handlers in these images won't work because the images
 	//contain href attributes, so we need another element to fire them
 	if(isSafari){
@@ -362,6 +363,7 @@ function loadMonuments(data){
 							.attr("onclick", "showMonumentInfo(id)")
 							.style("fill", "#00000000");
 							//.attr("data-alt_src", image_src_alt);
+		}
 	}
 
 	initializeTooltips();
