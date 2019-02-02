@@ -16,6 +16,9 @@ var projection = d3.geoMercator().translate([document.getElementById("svg").pare
 var map_color = "#fff4fd";
 var map_stroke_color = "#000000";
 
+//Safari detection
+var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
 const query_h1 = `SELECT ?imagen WHERE {
   ?item wdt:P3177 `
 
@@ -330,6 +333,36 @@ function loadMonuments(data){
 						.attr("data-style", style);
 						//.attr("data-alt_src", image_src_alt);
 	}
+	//If the user's browser is safari, the handlers in these images won't work because the images
+	//contain href attributes, so we need another element to fire them
+	if(isSafari){
+		for(let i = 0; i < data.length; i++){
+			let tipo_monumento;
+			d = data[i];
+			
+			if(d.coordenadas.longitud.includes('#')){
+				d.coordenadas.longitud = d.coordenadas.longitud.replace('#', '');
+			}
+
+			var id = d.identificador;
+			var type = d.tipoMonumento;
+			var latitude = d.coordenadas.latitud;
+			var longitude = d.coordenadas.longitud;
+			//El identificador es el id más el tipo de monumento ya que hay monumentos clasificados en varias categorías
+			projected_coords = projection([d.coordenadas.longitud, d.coordenadas.latitud]);
+			data_group.append("rect")
+							.attr("x", projected_coords[0] - half_base_size)
+							.attr("y", projected_coords[1] - half_base_size)
+							.attr("width", base_size)
+							.attr("height", base_size)
+							.attr("id", id + type + "rect")
+							.attr("image_id", id + type)
+							.attr("onmouseover", "mouseOverMonumentSafari(id, image_id)")
+							.attr("onmouseout", "mouseOutMonumentSafari(id, image_id)")
+							.attr("onclick", "showMonumentInfo(id)")
+							.style("fill", "#00000000");
+							//.attr("data-alt_src", image_src_alt);
+	}
 
 	initializeTooltips();
 	//Drawing the circles
@@ -433,6 +466,52 @@ function mouseOutMonument(id){
 	d.setAttribute("x", d.dataset.x - new_size/2);
 	d.setAttribute("y", d.dataset.y - new_size/2);
 	d.dataset.mouseover = "false";
+}
+
+function mouseOverMonumentSafari(id, image_id){
+	var scale;
+	transform = document.getElementById("zoom_group").getAttribute("transform");
+	if(transform == null){
+		scale = 1;
+	}else{
+		scale = transform.match(numberPattern)[2];
+	}
+	new_size = (base_size + mouseover_increase)/scale;
+
+	d = document.getElementById(id);
+	d.setAttribute("width", new_size);
+	d.setAttribute("height", new_size);
+	d.setAttribute("x", d.dataset.x - new_size/2);
+	d.setAttribute("y", d.dataset.y - new_size/2);
+	r = document.getElementById(image_id);
+	r.setAttribute("width", new_size);
+	r.setAttribute("height", new_size);
+	r.setAttribute("x", r.dataset.x - new_size/2);
+	r.setAttribute("y", r.dataset.y - new_size/2);
+	r.dataset.mouseover = "true";
+}
+
+function mouseOutMonumentSafari(id, image_id){
+	var scale;
+	transform = document.getElementById("zoom_group").getAttribute("transform");
+	if(transform == null){
+		scale = 1;
+	}else{
+		scale = transform.match(numberPattern)[2];
+	}
+	new_size = base_size/scale;
+
+	d = document.getElementById(id);
+	d.setAttribute("width", new_size);
+	d.setAttribute("height", new_size);
+	d.setAttribute("x", d.dataset.x - new_size/2);
+	d.setAttribute("y", d.dataset.y - new_size/2);
+	r = document.getElementById(image_id);
+	r.setAttribute("width", new_size);
+	r.setAttribute("height", new_size);
+	r.setAttribute("x", r.dataset.x - new_size/2);
+	r.setAttribute("y", r.dataset.y - new_size/2);
+	r.dataset.mouseover = "false";
 }
 
 function drawMonuments(){
