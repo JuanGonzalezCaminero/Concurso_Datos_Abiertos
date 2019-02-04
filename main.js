@@ -605,7 +605,7 @@ function mouseOutMonumentSafari(id, image_id){
 
 function drawMonuments(){
 	var scale;
-	data = document.getElementsByTagName("image");
+	data = document.getElementById("svg").getElementsByTagName("image");
 	//Transform of the map group, used to scale the circles
 	transform = document.getElementById("zoom_group").getAttribute("transform");
 	if(transform == null){
