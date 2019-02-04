@@ -296,9 +296,13 @@
 			<button id = "close_filters" onclick = "hideFilters()">
 				<i class="fa fa-times"></i>
 			</button>
-			
-			<div style="float: left; width: 50%">
+			<div id = "period_header" style="float: left; width: 50%;">
 				<p id = "header_period" style="/*text-align: center;*/ margin-left: 8%; font-size: 14pt; font-family: arial;"><strong>Período</strong></p>
+			</div>
+			<div id = "style_header" style="float: right; width: 50%;">
+				<p id = "header_style" style="/*text-align: center;*/ margin-left: 8%; font-size: 14pt; font-family: arial;"><strong>Estilo predominante</strong></p>
+			</div>
+			<div id = "period_div" style="float: left; width: 50%;">
 				<label>
 					<div class = "checkbox_div_filter">
 						<input type="checkbox" class = "period_checkbox" id = "No especificado" checked="true" onchange="periodFilterChanged(id, checked)">
@@ -414,8 +418,7 @@
 					</div>
 				</label>
 			</div>
-			<div style="float: right; width: 50%">
-				<p id = "header_style" style="/*text-align: center;*/ margin-left: 8%; font-size: 14pt; font-family: arial;"><strong>Estilo predominante</strong></p>
+			<div id = "style_div" style="float: right; width: 50%">
 				<label>
 					<div class = "checkbox_div_filter">
 						<input type="checkbox" class = "style_checkbox" id = "No especificado" checked="true" onchange="styleFilterChanged(id, checked)">
@@ -555,7 +558,7 @@
 					</div>
 				</label>
 			</div>
-			<div style="height: 12%; width: 100%; position: absolute; bottom: 0;">
+			<div id = "filters_controls" style="width: 100%; position: absolute; bottom: 0;">
 				<button class = "filters_button" onclick = "selectAllPeriods()" style="font-size: 12pt; width: 27.5%; margin-left: 4%; margin-bottom: 2%">
 				Seleccionar todo
 				</button>

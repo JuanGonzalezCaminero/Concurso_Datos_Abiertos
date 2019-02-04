@@ -11,8 +11,16 @@ var svg_height = document.getElementById("svg").parentNode.clientHeight;
 var svg_width = document.getElementById("svg").parentNode.clientWidth;
 var info_div = document.getElementById("info_div");
 var projection = d3.geoMercator().translate([document.getElementById("svg").parentNode.clientWidth/2, document.getElementById("svg").parentNode.clientHeight/2])
-									 		  .scale(10000)
+											  .scale(10000)
 									 		  .center([-4.7285413, 41.6522966]);
+if(screen.width == 1920){
+	projection.scale(10000);
+}else if(screen.width == 1366){
+	projection.scale(8000);
+}else if(screen.width == 1280 && screen.height <=800){
+	projection.scale(8000);
+}
+
 var map_color = "#fff4fd";
 var map_stroke_color = "#000000";
 

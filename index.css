@@ -209,17 +209,10 @@ button{
 
 #controls_div{
 	width: 16.75%;
-
 	padding: 0px;
 	height: 100%;
 	padding-top: 1.2%;
 	padding-bottom: 1.2%;
-
-	/*height: 95%;
-	margin-top: 1.25%;
-	margin-bottom: 1.25%;
-	margin-left: 1.25%;*/
-	
 	box-sizing: border-box;
 	position: absolute;
 	font-size: 12pt;
@@ -229,6 +222,18 @@ button{
 	-ms-user-select:none;
 	user-select:none;
 	-o-user-select:none;
+}
+
+#period_div{
+	overflow: auto;
+}
+
+#style_div{
+	overflow: auto;
+}
+
+#filters_controls{
+		height: 12%;
 }
 
 #info_div{
@@ -354,8 +359,167 @@ button{
   }
 }
 
+@media screen and (min-width: 1280px) and (max-width: 1280px) and (max-height: 1024px){
+	/*Firefox*/
+	@-moz-document url-prefix() {
+		.checkbox_div{
+			height: 3.3%;
+			padding-left: 6%;
+			padding-top: 2.5px;
+			padding-bottom: 2.5px;
+		}
+		.checkbox_div_filter{
+			font-size: 12pt;
+			padding-left: 6%;
+			padding-top: 2.5px;
+			padding-bottom: 2.5px;
+		}
+	}
 
-@media screen and (min-width: 1440px) and (max-width: 1440px){
+	/*Chrome*/
+	@media screen and (-webkit-min-device-pixel-ratio:0) { 
+		.checkbox_div{
+			height: 3.5%;
+			padding-left: 6%;
+			padding-top: 2.5px;
+			padding-bottom: 2.5px;
+		}
+		.checkbox_div_filter{
+			font-size: 14pt;
+			padding-left: 6%;
+			padding-top: 3.6px;
+			padding-bottom: 3.6px;
+		}
+	}
+
+	.checkbox_div img{
+		width: 7.5%;
+		height: auto;
+	}
+
+	.type_checkbox{
+		width: 15px;
+		height: 15px;
+	}
+
+	.period_checkbox{
+		width: 15px;
+		height: 15px;
+	}
+
+	.style_checkbox{
+		width: 15px;
+		height: 15px;
+	}
+
+	#header_period{
+		height: 10px;
+	}
+
+	#header_style{
+		height: 10px;
+	}
+
+	#filters_div{
+		width: 48%;
+		height: 85%;
+		position: absolute;
+		margin-left: 21.25%;
+		margin-top: 1.25%;
+		-moz-user-select: none;
+		-webkit-user-select: none; 
+		-ms-user-select:none;
+		user-select:none;
+		-o-user-select:none;
+	}
+
+	#buttons_div{
+		margin-left: 21.25%;
+		width: 12%;
+		position: absolute;
+		margin-bottom: 1.56%;
+		bottom: 0;
+		-moz-user-select: none;
+		-webkit-user-select: none; 
+		-ms-user-select:none;
+		user-select:none;
+		-o-user-select:none;
+	}
+
+	#controls_div{
+		width: 20%;
+		height: 100%;
+		padding: 0px;
+		padding-top: 1.5%;
+		padding-bottom: 1.5%;
+		box-sizing: border-box;
+		position: absolute;
+		font-size: 12pt;;
+		font-family: arial;
+		-moz-user-select: none;
+		-webkit-user-select: none; 
+		-ms-user-select:none;
+		user-select:none;
+		-o-user-select:none;
+	}
+
+	#period_div{
+		height: 80%;
+	}
+
+	#style_div{
+		height: 80%;
+	}
+
+	#filters_controls{
+	}
+
+	#info_div{
+		width: 30%;
+		height: auto;
+		bottom: 0;
+		right: 0;
+		padding: 0px;
+		position: absolute;
+		font-size: 14pt;
+		font-family: arial;
+	}
+
+	#filters_button{
+		position: absolute;
+		top: 0;
+		margin-top: 1.25%;
+		margin-left: 21.25%;
+		font-family: arial;
+ 		font-size: 12pt;
+ 		width: 8%;
+ 		display: initial;"
+	}
+
+	#title{
+		position: absolute;
+		bottom: 0;
+		margin-bottom: 2.5%;
+		left: 50%;
+		-webkit-transform: translateX(-50%);
+		transform: translateX(-50%);
+		font-family: arial;
+		font-size: 15pt
+	}
+
+	#disclaimer{
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		color: #909090;
+		-webkit-transform: translateX(-50%);
+		transform: translateX(-50%);
+		font-family: arial;
+		font-size: 10pt
+	}
+}
+
+@media screen and (min-width: 1440px) and (max-width: 1440px),  (min-width: 1600px) and (max-width: 1600px){
 	/*Firefox*/
 	@-moz-document url-prefix() {
 		.checkbox_div{
@@ -443,6 +607,7 @@ button{
 	}
 
 	#controls_div{
+		overflow: auto;
 		width: 20%;
 		height: 100%;
 		padding: 0px;
@@ -457,6 +622,17 @@ button{
 		-ms-user-select:none;
 		user-select:none;
 		-o-user-select:none;
+	}
+
+	#period_div{
+		height: 80%;
+	}
+
+	#style_div{
+		height: 80%;
+	}
+
+	#filters_controls{
 	}
 
 	#info_div{
@@ -504,7 +680,8 @@ button{
 	}
 }
 
-@media screen and (min-width: 1366px) and (max-width: 1366px){
+@media screen and (min-width: 1366px) and (max-width: 1366px),
+(min-width: 1280px) and (max-width: 1280px) and (max-height: 800px){
 	/*Firefox*/
 	@-moz-document url-prefix() {
 		.checkbox_div{
@@ -516,8 +693,8 @@ button{
 		.checkbox_div_filter{
 			font-size: 12pt;
 			padding-left: 6%;
-			padding-top: 2.5px;
-			padding-bottom: 2.5px;
+			padding-top: 3.5px;
+			padding-bottom: 3.5px;
 		}
 	}
 
@@ -531,8 +708,8 @@ button{
 		.checkbox_div_filter{
 			font-size: 12pt;
 			padding-left: 6%;
-			padding-top: 1.5px;
-			padding-bottom: 1.5px;
+			padding-top: 4.5px;
+			padding-bottom: 4.5px;
 		}
 	}
 
@@ -547,13 +724,13 @@ button{
 	}
 
 	.period_checkbox{
-		width: 12px;
-		height: 12px;
+		width: 15px;
+		height: 15px;
 	}
 
 	.style_checkbox{
-		width: 12px;
-		height: 12px;
+		width: 15px;
+		height: 15px;
 	}
 
 	#header_period{
@@ -566,7 +743,7 @@ button{
 
 	#filters_div{
 		width: 45%;
-		height: 85%;
+		height: 78vh;
 		position: absolute;
 		margin-left: 22.25%;
 		margin-top: 1.25%;
@@ -591,6 +768,7 @@ button{
 	}
 
 	#controls_div{
+		overflow: auto;
 		width: 20%;
 		height: 100%;
 		padding: 0px;
@@ -605,6 +783,18 @@ button{
 		-ms-user-select:none;
 		user-select:none;
 		-o-user-select:none;
+	}
+
+	#period_div{
+		height: 70%;
+	}
+
+	#style_div{
+		height: 70%;
+	}
+
+	#filters_controls{
+		height: 16%;
 	}
 
 	#info_div{
@@ -637,7 +827,7 @@ button{
 		-webkit-transform: translateX(-50%);
 		transform: translateX(-50%);
 		font-family: arial;
-		font-size: 14pt
+		font-size: 12pt
 	}
 
 	#disclaimer{
@@ -648,6 +838,6 @@ button{
 		-webkit-transform: translateX(-50%);
 		transform: translateX(-50%);
 		font-family: arial;
-		font-size: 9pt
+		font-size: 7pt
 	}
 }
