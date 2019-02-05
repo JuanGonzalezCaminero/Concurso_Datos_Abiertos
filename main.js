@@ -13,12 +13,15 @@ var info_div = document.getElementById("info_div");
 var projection = d3.geoMercator().translate([document.getElementById("svg").parentNode.clientWidth/2, document.getElementById("svg").parentNode.clientHeight/2])
 											  .scale(10000)
 									 		  .center([-4.7285413, 41.6522966]);
+var zoom_transition_duration = 500;
 if(screen.width == 1920){
 	projection.scale(10000);
 }else if(screen.width == 1366){
 	projection.scale(8000);
 }else if(screen.width == 1280 && screen.height <=800){
 	projection.scale(8000);
+}else if(screen.width == 1440 || screen.width == 1600){
+	projection.scale(9000);
 }
 
 var map_color = "#fff4fd";
@@ -45,10 +48,11 @@ const query_h2 = `.
 }`
 
 //This basically assigns the mouse wheel event to a listener, check https://github.com/d3/d3-zoom
-svg.call(d3.zoom().scaleExtent([1, 450])
+zoom_var = d3.zoom().scaleExtent([1.0000001, 450])
 				  .extent([[0, 0], [svg_width, svg_height]])
 				  .translateExtent([[-svg_width * 0.5, -svg_height * 0.5], [svg_width * 1.5, svg_height * 1.5]])
-				  .on("zoom", map_zoom));
+				  .on("zoom", map_zoom);
+svg.call(zoom_var);
 
 //Drawing the map
 d3.json("Castile and León_AL6.GeoJson", function(json){
@@ -644,6 +648,11 @@ function map_zoom() {
 }
 
 function zoomIn(){
-	d3.zoom().scaleBy(svg, 1.2)
-	svg.dispatch("zoom");
+	zoom_var.scaleBy(svg.transition().duration(zoom_transition_duration), 1.8);
+	//svg.dispatch("zoom");
+}
+
+function zoomOut(){
+	zoom_var.scaleBy(svg.transition().duration(zoom_transition_duration), 1/1.8);
+	//svg.dispatch("zoom");
 }
