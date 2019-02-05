@@ -643,3 +643,7 @@ function map_zoom() {
    drawMonuments(monuments);
 }
 
+function zoomIn(){
+	d3.zoom().scaleBy(svg, 1.2)
+	svg.dispatch("zoom");
+}
